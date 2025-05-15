@@ -163,19 +163,41 @@
   </div>
 
   <script>
-    function saveGrievance() {
-      const grievance = document.getElementById('grievance').value;
-      const comfort = document.getElementById('comfort').value;
-      const datetime = new Date().toLocaleString();
-      const entry = `${datetime} - ${grievance} [${comfort}]`;
+  function saveGrievance() {
+    const grievance = document.getElementById('grievance').value.trim();
+    const comfort = document.getElementById('comfort').value;
 
-      let existing = localStorage.getItem('shailyThoughts') || '';
-      existing += entry + '\n---\n';
-      localStorage.setItem('shailyThoughts', existing);
-      alert('Grievance submitted!');
-      document.getElementById('grievance').value = '';
-      document.getElementById('comfort').selectedIndex = 0;
+    if (!grievance) {
+      alert('Please enter a grievance!');
+      return;
     }
-  </script>
+
+    fetch("https://script.google.com/macros/s/AKfycbytM3tAgHZ89RVv_v7TKWrP-OYhoIhvQD5bX5BRg3IQIeirUiLe8qC7eXoMdpNTGAN-/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        grievance: grievance,
+        comfort: comfort
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.result === "success") {
+        alert("Grievance submitted!");
+        document.getElementById('grievance').value = '';
+        document.getElementById('comfort').selectedIndex = 0;
+      } else {
+        alert("Something went wrong!");
+      }
+    })
+    .catch(error => {
+      console.error("Error!", error.message);
+      alert("Error submitting grievance.");
+    });
+  }
+</script>
+
 </body>
 </html>
