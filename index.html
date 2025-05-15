@@ -174,23 +174,19 @@
 
     fetch("https://script.google.com/macros/s/AKfycbytM3tAgHZ89RVv_v7TKWrP-OYhoIhvQD5bX5BRg3IQIeirUiLe8qC7eXoMdpNTGAN-/exec", {
       method: "POST",
+      mode: "no-cors", // Needed for Google Apps Script when no response is expected
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         grievance: grievance,
         comfort: comfort
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
+      })
     })
-    .then(res => res.json())
-    .then(response => {
-      if (response.result === "success") {
-        alert("Grievance submitted!");
-        document.getElementById('grievance').value = '';
-        document.getElementById('comfort').selectedIndex = 0;
-      } else {
-        alert("Something went wrong!");
-      }
+    .then(() => {
+      alert("Grievance submitted!");
+      document.getElementById('grievance').value = '';
+      document.getElementById('comfort').selectedIndex = 0;
     })
     .catch(error => {
       console.error("Error!", error.message);
@@ -198,6 +194,7 @@
     });
   }
 </script>
+
 
 </body>
 </html>
