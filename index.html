@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SHAILY’S GRIEVANCE PORTAL</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -13,7 +13,6 @@
       font-family: 'Quicksand', sans-serif;
       color: white;
       overflow-x: hidden;
-      position: relative;
     }
 
     h1 {
@@ -88,7 +87,7 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      pointer-events: none;
+      overflow: hidden;
     }
 
     .heart, .flower {
@@ -145,7 +144,7 @@
       <option>Food🍽️</option>
     </select>
 
-    <button onclick="saveGrievance()">Submit</button>
+    <button onclick="submitGrievance()">Submit</button>
 
     <div class="link-button">
       <a href="thoughts.html">View Shaily’s Thoughts</a>
@@ -153,29 +152,32 @@
   </div>
 
   <script>
-    function saveGrievance() {
-      const grievance = document.getElementById('grievance').value.trim();
-      const comfort = document.getElementById('comfort').value;
+    function submitGrievance() {
+      const grievance = document.getElementById("grievance").value;
+      const comfort = document.getElementById("comfort").value;
 
-      if (!grievance || comfort.includes("How can I")) {
-        alert("Please fill both the grievance and the comfort option.");
+      if (!grievance || comfort.includes("How")) {
+        alert("Please fill in both grievance and comfort choice.");
         return;
       }
 
-      fetch('https://script.google.com/macros/s/AKfycbypWtN36Y0wiS8RdU3IThN4iw65AW55yrYRGxJA5Usr66KKBtpLF4Ouv_vWWXRYJGNK/exec', {
-        method: 'POST',
-        body: JSON.stringify({ grievance, comfort }),
-        headers: { 'Content-Type': 'application/json' }
+      fetch("https://script.google.com/macros/s/AKfycbypWtN36Y0wiS8RdU3IThN4iw65AW55yrYRGxJA5Usr66KKBtpLF4Ouv_vWWXRYJGNK/exec", {
+        method: "POST",
+        body: new URLSearchParams({
+          grievance,
+          comfort,
+          datetime: new Date().toLocaleString()
+        }),
       })
-      .then(response => response.text())
+      .then(res => res.text())
       .then(data => {
-        alert('Grievance submitted!');
-        document.getElementById('grievance').value = '';
-        document.getElementById('comfort').selectedIndex = 0;
+        alert("Grievance submitted!");
+        document.getElementById("grievance").value = "";
+        document.getElementById("comfort").selectedIndex = 0;
       })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Oops! Something went wrong.');
+      .catch(err => {
+        alert("Submission failed. Try again.");
+        console.error(err);
       });
     }
   </script>
