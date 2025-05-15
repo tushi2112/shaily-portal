@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SHAILY’S GRIEVANCE PORTAL</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
   <style>
@@ -13,9 +13,8 @@
       font-family: 'Quicksand', sans-serif;
       color: white;
       overflow-x: hidden;
-      position: relative;
-      height: 100vh;
     }
+
     h1 {
       text-align: center;
       font-size: 3em;
@@ -23,20 +22,23 @@
       margin-top: 40px;
       font-weight: 600;
     }
+
     p.subtitle {
       text-align: center;
       font-size: 1.2em;
-      text-transform: lowercase;
+      font-variant: small-caps;
       margin-top: -10px;
       animation: fadeInUp 1.5s ease;
       font-weight: 400;
     }
+
     .container {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 40px;
     }
+
     textarea {
       width: 80%;
       height: 150px;
@@ -44,8 +46,8 @@
       border: none;
       padding: 10px;
       font-size: 1em;
-      resize: vertical;
     }
+
     select {
       margin-top: 20px;
       padding: 10px;
@@ -54,8 +56,8 @@
       color: pink;
       background-color: white;
       font-size: 1em;
-      width: 80%;
     }
+
     button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -65,85 +67,78 @@
       border-radius: 10px;
       border: none;
       cursor: pointer;
-      width: 150px;
-      transition: background-color 0.3s ease;
     }
-    button:hover {
-      background-color: #ff66b2;
-      color: white;
-    }
+
     .link-button {
       text-align: center;
       margin-top: 30px;
     }
+
     .link-button a {
       color: white;
       text-decoration: underline;
       font-weight: bold;
     }
 
-    /* Floating hearts and flowers */
     .background-elements {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
       z-index: -1;
       overflow: hidden;
+      pointer-events: none;
     }
-    .heart, .flower {
+
+    .floating-emoji {
       position: absolute;
       font-size: 30px;
-      opacity: 0.8;
-      animation: float 10s linear infinite;
+      animation: float 10s infinite ease-in-out;
       user-select: none;
-      will-change: transform, opacity;
+      pointer-events: none;
     }
-    .heart {
-      color: #ff4081;
-      animation-duration: 12s;
-    }
-    .flower {
-      color: #ff80ab;
-      animation-duration: 15s;
-    }
-    .heart:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-    .heart:nth-child(2) { top: 50%; left: 80%; animation-delay: 4s; }
-    .flower:nth-child(3) { top: 30%; left: 40%; animation-delay: 2s; }
-    .flower:nth-child(4) { top: 60%; left: 70%; animation-delay: 6s; }
 
     @keyframes float {
       0% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      10% {
+        transform: translateY(0);
         opacity: 1;
       }
       100% {
-        transform: translateY(-10vh);
+        transform: translateY(-100vh);
         opacity: 0;
       }
     }
 
     @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
   <div class="background-elements">
-    <div class="heart">❤️</div>
-    <div class="heart">💖</div>
-    <div class="flower">🌸</div>
-    <div class="flower">💐</div>
+    <span class="floating-emoji" style="top: 20%; left: 10%; animation-delay: 0s;">❤️</span>
+    <span class="floating-emoji" style="top: 50%; left: 80%; animation-delay: 2s;">❤️</span>
+    <span class="floating-emoji" style="top: 30%; left: 40%; animation-delay: 1s;">🌸</span>
+    <span class="floating-emoji" style="top: 60%; left: 70%; animation-delay: 3s;">🌸</span>
   </div>
 
   <h1>SHAILY’S GRIEVANCE PORTAL</h1>
@@ -153,55 +148,33 @@
     <textarea id="grievance" placeholder="Type your grievance here..."></textarea>
 
     <select id="comfort">
-      <option value="">How can I make my kacchu feel good?</option>
-      <option value="Chocolates🍫">Chocolates🍫</option>
-      <option value="Hugs">Hugs</option>
-      <option value="A surprise gift of Tushi’s choice🎁">A surprise gift of Tushi’s choice🎁</option>
-      <option value="Food🍽️">Food🍽️</option>
+      <option>How can I make my kacchu feel good?</option>
+      <option>Chocolates🍫</option>
+      <option>Hugs</option>
+      <option>A surprise gift of Tushi’s choice🎁</option>
+      <option>Food🍽️</option>
     </select>
 
     <button onclick="saveGrievance()">Submit</button>
 
     <div class="link-button">
-      <a href="thoughts.html" target="_blank" rel="noopener">View Shaily’s Thoughts</a>
+      <a href="thoughts.html">View Shaily’s Thoughts</a>
     </div>
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzip4FT1jS6ppkDBwRQv4rRz-j2F1SqjOWt-CGBBhh_KeSLkx0sNRJU8LkHhMfFK-YLhQ/exec';
-
-    async function saveGrievance() {
-      const grievance = document.getElementById('grievance').value.trim();
+    function saveGrievance() {
+      const grievance = document.getElementById('grievance').value;
       const comfort = document.getElementById('comfort').value;
-
-      if (!grievance) {
-        alert('Please enter your grievance.');
-        return;
-      }
-      if (!comfort) {
-        alert('Please select how I can make kacchu feel good.');
-        return;
-      }
-
       const datetime = new Date().toLocaleString();
+      const entry = `${datetime} - ${grievance} [${comfort}]`;
 
-      // Construct URL with encoded parameters
-      const url = `${scriptURL}?grievance=${encodeURIComponent(grievance)}&comfort=${encodeURIComponent(comfort)}&datetime=${encodeURIComponent(datetime)}`;
-
-      try {
-        const response = await fetch(url);
-        if (response.ok) {
-          alert('Grievance submitted successfully!');
-          // Clear form
-          document.getElementById('grievance').value = '';
-          document.getElementById('comfort').selectedIndex = 0;
-        } else {
-          alert('Failed to submit grievance. Please try again.');
-        }
-      } catch (error) {
-        console.error('Error submitting grievance:', error);
-        alert('Error submitting grievance. Please check your internet connection and try again.');
-      }
+      let existing = localStorage.getItem('shailyThoughts') || '';
+      existing += entry + '\n---\n';
+      localStorage.setItem('shailyThoughts', existing);
+      alert('Grievance submitted!');
+      document.getElementById('grievance').value = '';
+      document.getElementById('comfort').selectedIndex = 0;
     }
   </script>
 </body>
