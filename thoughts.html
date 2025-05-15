@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SHAILY’S THOUGHTS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: pink;
+      font-family: 'Quicksand', sans-serif;
+      color: black;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3em;
+      font-weight: 600;
+      margin-top: 40px;
+      animation: fadeInDown 1.5s ease;
+    }
+
+    p.subtitle {
+      text-align: center;
+      font-size: 1.2em;
+      font-variant: small-caps;
+      margin-top: -10px;
+      font-weight: 400;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    .container {
+      max-width: 700px;
+      background-color: white;
+      margin: 40px auto;
+      border-radius: 15px;
+      padding: 20px 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      white-space: pre-wrap;
+      font-size: 1.1em;
+      line-height: 1.5em;
+      color: black;
+    }
+
+    .background-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .floating-emoji {
+      position: absolute;
+      font-size: 30px;
+      animation: float 10s infinite ease-in-out;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .back-link {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .back-link a {
+      color: white;
+      text-decoration: underline;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="background-elements">
+    <span class="floating-emoji" style="top: 15%; left: 15%; animation-delay: 0s;">❤️</span>
+    <span class="floating-emoji" style="top: 45%; left: 75%; animation-delay: 3s;">❤️</span>
+    <span class="floating-emoji" style="top: 35%; left: 40%; animation-delay: 1.5s;">🌸</span>
+    <span class="floating-emoji" style="top: 60%; left: 65%; animation-delay: 2.5s;">🌸</span>
+  </div>
+
+  <h1>SHAILY’S THOUGHTS</h1>
+  <p class="subtitle">all your grievances and feelings, safely stored</p>
+
+  <div class="container" id="thoughtsContainer">
+    Loading thoughts...
+  </div>
+
+  <div class="back-link">
+    <a href="index.html">← Back to Grievance Portal</a>
+  </div>
+
+  <script>
+    function loadThoughts() {
+      const container = document.getElementById('thoughtsContainer');
+      const data = localStorage.getItem('shailyThoughts');
+      if (!data) {
+        container.textContent = "No thoughts submitted yet.";
+        return;
+      }
+      container.textContent = data.trim();
+    }
+
+    window.onload = loadThoughts;
+  </script>
+</body>
+</html>
